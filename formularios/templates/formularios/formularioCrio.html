@@ -8,11 +8,12 @@
 </head>
 <body>
     <h1>Formulario Criopreservación</h1>
+    <!-- Le quité el action para que la redireción se hiciera por medio de la view -->
     <div class="formularioSeguimientos" id="formularioSiembra">
         <h2> Datos de Criopreservación</h2>
-        <form action="/datos/" method="post">
+        <form  method="post">
             {% csrf_token %}
-            {{ formCrio }}
+            {{ formCrio.as_p }}
             <input type="submit" value="Submit">
         </form>
         

@@ -1,4 +1,5 @@
 from django import forms
+from . import models
 
 class CosechaForm(forms.Form):
     loteCosecha = forms.CharField(label='Lote:', max_length=100)
@@ -17,6 +18,9 @@ class SiembraForm(forms.Form):
     numFrascosSiembra = forms.IntegerField(label='Número de frascos d Siembra:')
     numCelulasSembradasXFrasco = forms.FloatField(label='Número de células sembradas por frasco: ')
 
-class CrioForm(forms.Form): 
-    numCelulasXVial = forms.FloatField(label='Número de celulas por vial: ')
-    numViales = forms.IntegerField(label='Número de viales: ')
+class CrioForm(forms.ModelForm): 
+
+    class Meta: 
+        model =  models.Crio
+        fields = ['numCelulasXVial' ,  'numViales'] 
+        labels = {'numCelulasXVial' : 'Número de células por vial:' , 'numViales': 'Número de viales'}

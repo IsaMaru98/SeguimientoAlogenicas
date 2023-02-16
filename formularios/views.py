@@ -42,18 +42,19 @@ def siembraForm(request):
     
     return render(request, 'formularios/formularioSiembra.html', {'formSiembra': formSiembra} )
 
-def crioForm(request): 
-    if request.method == 'POST':
-        # create a form instance and populate it with data from the request:
-        formCrio= forms.CrioForm(request.POST)
-        # check whether it's valid:
-        if formCrio.is_valid():
-            # process the data in form.cleaned_data as required
-            # ...
-            # redirect to a new URL:
-            return HttpResponseRedirect('/datos/')
+def crioForm(request):
 
-    # if a GET (or any other method) we'll create a blank form
+    if request.method == 'POST': 
+        formCrio = forms.CrioForm(request.POST)
+        if formCrio.is_valid():
+            numCelulasXVial = formCrio.cleaned_data['numCelulasXVial']
+            numViales = formCrio.cleaned_data['numViales']
+
+            result = numCelulasXVial*numViales
+            formCrio.save() 
+
+            return render(request, 'formularios/datos.html', {'result':result})
+    
     else:
         formCrio = forms.CrioForm()
     
