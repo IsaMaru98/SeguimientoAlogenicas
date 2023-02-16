@@ -18,9 +18,9 @@ class Cosecha(models.Model):
         return f"{self.fechaCosecha}-{self.areaFrascosCosecha}-{self.numFrascosCosecha}-{self.loteCosecha}"
 
 class Siembra(models.Model): 
-    loteSimbra = models.TextField() 
+    loteSimbra = models.CharField(max_length=50) 
     fechaSiembra = models.DateField()
-    paseSiembra = models.TextField()
+    paseSiembra = models.CharField(max_length=50) 
     areaFrascosSiembra = models.IntegerField(choices=[(25, 'T25'), (75, 'T75'), (175, 'T175'), (850, 'CR Liso'), (2125, 'CR Corrugado'), (0, 'Crioviales')])
     numFrascosSiembra = models.IntegerField()
     numCelulasSembradasXFrasco = models.FloatField()

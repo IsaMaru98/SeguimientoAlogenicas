@@ -8,5 +8,16 @@
 </head>
 <body>
     <h1>Soy la pagina de datos</h1>
+    <h2> Datos de coseha </h2>
+    <h3>
+    {% for i in datosCosecha %}
+
+        <h1> Pase: {{i.paseCosecha}} </h1>
+    
+    {% endfor %}
+</h3>
+
+<h1>{{form}}</h1>
+
 </body>
 </html>

@@ -9,21 +9,22 @@
     
 
 <h1> Formularios de seguimiento </h1>
-
-<!-- <h3>
-    {% for i in datosCosecha %}
-
-        <h1> Pase: {{i.paseCosecha}} </h1>
-    
-    {% endfor %}
-</h3> -->
-
-
-<form action="/datos/" method="post">
-    {% csrf_token %}
-    {{ form }}
-    <input type="submit" value="Submit">
-</form>
+<div class="listaFormularios">
+    <ul>
+        <li>
+            <a href="/formulario_cosecha/"> Formulario Cosecha</a>
+        </li>
+        <li>
+            <a href="/formulario_siembra/"> Formulario Siembra</a>
+        </li>
+        <li>
+            <a href="/formulario_criopreservacion/"> Formulario Criopreservación</a>
+        </li>
+        <li>
+            <a href="/datos/">Datos</a>
+        </li>
+    </ul>
+</div>
 
 
 </body>
