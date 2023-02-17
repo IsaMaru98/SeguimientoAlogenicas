@@ -10,9 +10,9 @@
     <h1> Formulario Cosecha</h1>
     <div class="formularioSeguimientos" id="formularioCosecha">
         <h2> Datos de coseha</h2>
-        <form action="/datos/" method="post">
+        <form method="post">
             {% csrf_token %}
-            {{ formCosecha }}
+            {{ formCosecha.as_p }}
             <input type="submit" value="Submit">
         </form>
         

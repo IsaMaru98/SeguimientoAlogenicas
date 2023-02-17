@@ -13,7 +13,8 @@
         <h2> Datos de Criopreservación</h2>
         <form  method="post">
             {% csrf_token %}
-            {{ formCrio.as_p }}
+            
+            {{ formCrio.as_p }} 
             <input type="submit" value="Submit">
         </form>
         
