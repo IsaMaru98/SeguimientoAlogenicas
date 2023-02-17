@@ -12,10 +12,13 @@
     <h3>
     {% for i in datosCosecha %}
 
-        <h1> Pase: {{i.paseCosecha}} </h1>
-        <h1> Fecha: {{i.fechaCosecha}} </h1>
-        <h1> Frascos: {{i.numFrascosCosecha}} </h1>
-        <h1> Viabilidad: {{i.viabilidadCosecha}} </h1>
+        <h1> -- {{i.idCosecha}} -- </h1>
+        <p> Pase: {{i.paseCosecha}} </p>
+        <p> Fecha: {{i.fechaCosecha}} </p>
+        <p> Número de Frascos: {{i.numFrascosCosecha}} </p>
+        <p> Area del frasco: {{i.areaFrascosCosecha}} </p>
+        <p> umero de células obtenidas: {{i.numCelulasObtenidas}} </p>
+        <p> Viabilidad: {{i.viabilidadCosecha}} </p>
     
     {% endfor %}
 </h3>
@@ -24,24 +27,6 @@
 <h1>Numero total de células criopreservadas </h1>
 <h3>{{result}} x10e6 </h3> 
 
-<div >
-
-    <h1> Datos recien ingresados de cosecha </h1>
-
-    <!-- {% for i in formCosecha %}
-
-        <h1> Pase: {{i.paseCosecha}} </h1>
-        <h1> Fecha: {{i.fechaCosecha}} </h1>
-        <h1> Frascos: {{i.numFrascosCosecha}} </h1>
-        <h1> Viabilidad: {{i.viabilidadCosecha}} </h1>
-    
-    {% endfor %} -->
-
-    {{formCosecha.as_p}}
-
-
-
-</div>
 
 </body>
 </html>

@@ -33,7 +33,7 @@ def siembraForm(request):
         # check whether it's valid:
         if formSiembra.is_valid():
             # process the data in form.cleaned_data as required
-            # ...
+            formSiembra.save()
             # redirect to a new URL:
     
             return HttpResponseRedirect('/datos/')
