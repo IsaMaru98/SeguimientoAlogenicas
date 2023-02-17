@@ -16,6 +16,7 @@ def cosechaForm(request):
         if formCosecha.is_valid():
             # process the data in form.cleaned_data as required
             # ...
+            formCosecha.save()
             # redirect to a new URL:
             return HttpResponseRedirect('/datos/')
 
@@ -34,6 +35,7 @@ def siembraForm(request):
             # process the data in form.cleaned_data as required
             # ...
             # redirect to a new URL:
+    
             return HttpResponseRedirect('/datos/')
 
     # if a GET (or any other method) we'll create a blank form
