@@ -1,15 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Soy la pagina de datos</h1>
-    <h2> Datos de coseha </h2>
-    <h3>
+{% extends 'formularios/base.html' %}
+
+{% block content %}
     {% for i in datosCosecha %}
 
         <h1> -- {{i.idCosecha}} -- </h1>
@@ -26,7 +17,4 @@
 <!-- me esta mostrando el resultado de multiplicar los datos enviados por el formulario de Criopreservación -->
 <h1>Numero total de células criopreservadas </h1>
 <h3>{{result}} x10e6 </h3> 
-
-
-</body>
-</html>
+{% endblock %}
