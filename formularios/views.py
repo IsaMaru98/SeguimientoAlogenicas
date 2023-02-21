@@ -14,11 +14,19 @@ def cosechaForm(request):
         formCosecha = forms.CosechaForm(request.POST)
         # check whether it's valid:
         if formCosecha.is_valid():
-            # process the data in form.cleaned_data as required
-            # ...
+            celulasObtenidas = formCosecha.cleaned_data['numCelulasObtenidas']
+            numFrascosCosecha = formCosecha.cleaned_data['numFrascosCosecha']
+            areaFrascosCosecha = formCosecha.cleaned_data['areaFrascosCosecha']
+            
+
+            r = ((celulasObtenidas*1000000)/(areaFrascosCosecha*numFrascosCosecha))
+
+            densidadCosecha = round(r, 2 )
+    
+
             formCosecha.save()
             # redirect to a new URL:
-            return HttpResponseRedirect('/datos/')
+            return render(request, 'formularios/datos.html', {'densidadCosecha': densidadCosecha})
 
     # if a GET (or any other method) we'll create a blank form
     else:
@@ -30,15 +38,16 @@ def siembraForm(request):
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
         formSiembra= forms.SiembraForm(request.POST)
-        # check whether it's valid:
+        
         if formSiembra.is_valid():
-            # process the data in form.cleaned_data as required
+            celulasSembradas = formSiembra.cleaned_data['numCelulasSembradasXFrasco']
+            areaFrascoSiembra = formSiembra.cleaned_data['areaFrascosSiembra']
+
+            densidadSiembra = round((celulasSembradas*1000000)/ areaFrascoSiembra, 2)
             formSiembra.save()
             # redirect to a new URL:
     
-            return HttpResponseRedirect('/datos/')
-
-    # if a GET (or any other method) we'll create a blank form
+            return render(request, 'formularios/datos.html', {'densidadSiembra': densidadSiembra})
     else:
         formSiembra = forms.SiembraForm()
     
@@ -46,16 +55,22 @@ def siembraForm(request):
 
 def crioForm(request):
 
+    def totalCrio(a,b):
+        result = a*b 
+
+        return result 
+
+
     if request.method == 'POST': 
         formCrio = forms.CrioForm(request.POST)
         if formCrio.is_valid():
             numCelulasXVial = formCrio.cleaned_data['numCelulasXVial']
             numViales = formCrio.cleaned_data['numViales']
 
-            result = numCelulasXVial*numViales
+            total = totalCrio(numCelulasXVial,numViales)
             formCrio.save() 
 
-            return render(request, 'formularios/datos.html', {'result':result})
+            return render(request, 'formularios/datos.html', {'total':total})
     
     else:
         formCrio = forms.CrioForm()
