@@ -10,26 +10,15 @@ def home(request):
     return render(request, 'formularios/home.html', {})
 def cosechaForm(request): 
 
-    def densidadCosecha(celulasObtenidas, numFrascosCosecha, areaFrascosCosecha): 
-        r = ((celulasObtenidas*1000000)/(areaFrascosCosecha*numFrascosCosecha))
-        densidadCosecha = round(r, 2 )
-
-        return densidadCosecha
-
-
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
         formCosecha = forms.CosechaForm(request.POST)
         # check whether it's valid:
         if formCosecha.is_valid():
-            celulasObtenidas = formCosecha.cleaned_data['numCelulasObtenidas']
-            numFrascosCosecha = formCosecha.cleaned_data['numFrascosCosecha']
-            areaFrascosCosecha = formCosecha.cleaned_data['areaFrascosCosecha']
 
-            densidadCosecha = densidadCosecha(celulasObtenidas, numFrascosCosecha, areaFrascosCosecha)
             formCosecha.save()
             # redirect to a new URL:
-            return render(request, 'formularios/datos.html', {'densidadCosecha': densidadCosecha})
+            return HttpResponse('<h1> Datos guardados </h1>')
 
     # if a GET (or any other method) we'll create a blank form
     else:
@@ -38,26 +27,16 @@ def cosechaForm(request):
     return render(request, 'formularios/formularioCosecha.html', {'formCosecha': formCosecha} )
 
 def siembraForm(request): 
-
-    def densidadSiembra(celulasSembradas,areaFrascoSiembra): 
-        r = (celulasSembradas*1000000)/ areaFrascoSiembra
-        densidadSiembra = round(r,2)
-        return densidadSiembra
-
-
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
         formSiembra= forms.SiembraForm(request.POST)
         
         if formSiembra.is_valid():
-            celulasSembradas = formSiembra.cleaned_data['numCelulasSembradasXFrasco']
-            areaFrascoSiembra = formSiembra.cleaned_data['areaFrascosSiembra']
 
-            densidadSiembra = densidadSiembra(celulasSembradas,areaFrascoSiembra)
             formSiembra.save()
             # redirect to a new URL:
     
-            return render(request, 'formularios/datos.html', {'densidadSiembra': densidadSiembra})
+            return HttpResponse('<h1> Datos guardados </h1>' )
     else:
         formSiembra = forms.SiembraForm()
     
@@ -65,22 +44,12 @@ def siembraForm(request):
 
 def crioForm(request):
 
-    def totalCrio(numCelulasXVial,numViales):
-        result = numCelulasXVial* numViales 
-
-        return result 
-
-
     if request.method == 'POST': 
         formCrio = forms.CrioForm(request.POST)
         if formCrio.is_valid():
-            numCelulasXVial = formCrio.cleaned_data['numCelulasXVial']
-            numViales = formCrio.cleaned_data['numViales']
-
-            total = totalCrio(numCelulasXVial,numViales)
             formCrio.save() 
 
-            return render(request, 'formularios/datos.html', {'total':total})
+            return HttpResponse('<h1> Datos guardados </h1>' )
     
     else:
         formCrio = forms.CrioForm()
