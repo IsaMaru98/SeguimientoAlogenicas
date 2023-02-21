@@ -1,0 +1,15 @@
+[1mdiff --git a/formularios/templates/formularios/datos.html b/formularios/templates/formularios/datos.html[m
+[1mindex e27fe39..2a70d8b 100644[m
+[1m--- a/formularios/templates/formularios/datos.html[m
+[1m+++ b/formularios/templates/formularios/datos.html[m
+[36m@@ -13,8 +13,7 @@[m
+     [m
+     {% endfor %}[m
+ </h3>[m
+[31m-[m
+ <!-- me esta mostrando el resultado de multiplicar los datos enviados por el formulario de Criopreservación -->[m
+ <h1>Numero total de células criopreservadas </h1>[m
+ <h3>{{result}} x10e6 </h3> [m
+[31m-{% endblock %}[m
+\ No newline at end of file[m
+[32m+[m[32m{% endblock %}[m
