@@ -4,7 +4,7 @@ class Cosecha(models.Model):
     cci = models.CharField(max_length=10, default="")
     loteCosecha = models.CharField(default="", max_length=50)
     fechaCosecha = models.DateField()
-    paseCosecha = models.CharField(max_length=50)
+    paseCosecha = models.CharField(choices=[('P0', 'P0'),('P1', 'P1'), ('P2', 'P2'), ('P3', 'P3'), ('P4', 'P4'), ('P5', 'P5'), ('P6', 'P6'), ('P7', 'P7')] , max_length=10)
     areaFrascosCosecha = models.IntegerField(choices=[(25, 'T25'), (75, 'T75'), (175, 'T175'), (850, 'CR Liso'), (2125, 'CR Corrugado'), (0, 'Crioviales')]) 
     numFrascosCosecha = models.IntegerField()
     numCelulasObtenidas = models.FloatField()
@@ -34,6 +34,10 @@ class Crio(models.Model):
     numCelulasXVial = models.FloatField()
     numViales = models.IntegerField() 
     cosechaFKCrio = models.ForeignKey(Cosecha, on_delete=models.CASCADE, default="01-01-2000-25-1-001")
+
+
+
+
 
 
 

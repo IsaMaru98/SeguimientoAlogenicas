@@ -16,6 +16,8 @@ class CosechaAdmin(admin.ModelAdmin):
             self.exclude = ()
         return super(CosechaAdmin, self).get_form(request, obj, **kwargs)
 
+
+
 admin.site.register(models.Cosecha, CosechaAdmin)
 admin.site.register(models.Siembra)
 admin.site.register(models.Crio)
