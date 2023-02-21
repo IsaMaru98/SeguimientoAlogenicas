@@ -9,6 +9,14 @@ from . import forms
 def home(request):
     return render(request, 'formularios/home.html', {})
 def cosechaForm(request): 
+
+    def densidadCosecha(celulasObtenidas, numFrascosCosecha, areaFrascosCosecha): 
+        r = ((celulasObtenidas*1000000)/(areaFrascosCosecha*numFrascosCosecha))
+        densidadCosecha = round(r, 2 )
+
+        return densidadCosecha
+
+
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
         formCosecha = forms.CosechaForm(request.POST)
@@ -17,13 +25,8 @@ def cosechaForm(request):
             celulasObtenidas = formCosecha.cleaned_data['numCelulasObtenidas']
             numFrascosCosecha = formCosecha.cleaned_data['numFrascosCosecha']
             areaFrascosCosecha = formCosecha.cleaned_data['areaFrascosCosecha']
-            
 
-            r = ((celulasObtenidas*1000000)/(areaFrascosCosecha*numFrascosCosecha))
-
-            densidadCosecha = round(r, 2 )
-    
-
+            densidadCosecha = densidadCosecha(celulasObtenidas, numFrascosCosecha, areaFrascosCosecha)
             formCosecha.save()
             # redirect to a new URL:
             return render(request, 'formularios/datos.html', {'densidadCosecha': densidadCosecha})
@@ -35,6 +38,13 @@ def cosechaForm(request):
     return render(request, 'formularios/formularioCosecha.html', {'formCosecha': formCosecha} )
 
 def siembraForm(request): 
+
+    def densidadSiembra(celulasSembradas,areaFrascoSiembra): 
+        r = (celulasSembradas*1000000)/ areaFrascoSiembra
+        densidadSiembra = round(r,2)
+        return densidadSiembra
+
+
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
         formSiembra= forms.SiembraForm(request.POST)
@@ -43,7 +53,7 @@ def siembraForm(request):
             celulasSembradas = formSiembra.cleaned_data['numCelulasSembradasXFrasco']
             areaFrascoSiembra = formSiembra.cleaned_data['areaFrascosSiembra']
 
-            densidadSiembra = round((celulasSembradas*1000000)/ areaFrascoSiembra, 2)
+            densidadSiembra = densidadSiembra(celulasSembradas,areaFrascoSiembra)
             formSiembra.save()
             # redirect to a new URL:
     
@@ -55,8 +65,8 @@ def siembraForm(request):
 
 def crioForm(request):
 
-    def totalCrio(a,b):
-        result = a*b 
+    def totalCrio(numCelulasXVial,numViales):
+        result = numCelulasXVial* numViales 
 
         return result 
 
