@@ -1,25 +1,12 @@
 {% extends 'formularios/base.html' %}
 
 {% block content %}
-    {% for i in datosCosecha %}
+{% for i in datos %}
 
-        <h1> -- {{i.idCosecha}} -- </h1>
-        <p> Pase: {{i.paseCosecha}} </p>
-        <p> Fecha: {{i.fechaCosecha}} </p>
-        <p> Número de Frascos: {{i.numFrascosCosecha}} </p>
-        <p> Area del frasco: {{i.areaFrascosCosecha}} </p>
-        <p> umero de células obtenidas: {{i.numCelulasObtenidas}} </p>
-        <p> Viabilidad: {{i.viabilidadCosecha}} </p>
+        <h1> -- {{i.siembra}} -- </h1>
+        <p> Generaciones: {{i.generaciones}} </p>
+        <p> Tiempo de duplicación: {{i.tiempoDuplicacion}} </p>
+        <p> Relacion Expansión: {{i.relacionExpansion}} </p>
     
     {% endfor %}
-</h3>
-<!-- me esta mostrando el resultado de multiplicar los datos enviados por el formulario de Criopreservación -->
-<h1>Numero total de células criopreservadas </h1>
-<h3>{{total}} x10e6 </h3> 
-<h1>Densidad siembra</h1>
-<h3>{{densidadSiembra}} celulas/cm2  </h3> 
-<h1>Densidad Cosecha</h1>
-<h3>{{densidadCosecha}} celulas/cm2  </h3> 
-<h1>Generaciones</h1>
-<h3>{{generaciones}}</h3>
 {% endblock %}

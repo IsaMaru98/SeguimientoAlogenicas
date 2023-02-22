@@ -58,37 +58,22 @@ def crioForm(request):
     
     return render(request, 'formularios/formularioCrio.html', {'formCrio': formCrio} )
 
+def datoForm(request):
+
+    if request.method == 'POST': 
+        formDato = forms.DatosForm(request.POST)
+        if formDato.is_valid():
+            formDato.save() 
+
+            return HttpResponse('<h1> Datos guardados </h1>' )
+    
+    else:
+        formDato = forms.DatosForm()
+    
+    return render(request, 'formularios/formularioDatos.html', {'formDato': formDato} )
 def datos(request): 
-    datosCosecha = models.Cosecha.objects.all()
+    datos = models.Dato.objects.all()
     
-    cosecha =  models.Cosecha.objects.get(siembra='C0222001-2022-02-21-175-10-001')
-    totalObtenidascosecha = cosecha.totalObtenidas 
-
-    siembra = cosecha.siembra 
-
-    totalSembradas = siembra.totalSiembra 
-
-    print(totalObtenidascosecha, totalSembradas)
-
-    relacionExpancion = round((totalObtenidascosecha/totalSembradas),2)
-
-
-    X = ma.log(relacionExpancion)
-
-    numeroGeneraciones = round(X/ma.log(2), 2) 
-
-    ## tiempo de duplicación 
-
-    diasCultivo = cosecha.tiempoCultivoDias 
-
-    
-    tiempoDuplicación = round(diasCultivo* (ma.log(2)/X) , 2) 
-    print(tiempoDuplicación)
-
-
-    print('relacioón expansion', relacionExpancion)
-    print(cosecha)
-    print(round(numeroGeneraciones,2))
-    return render(request, 'formularios/datos.html', {'generaciones': numeroGeneraciones} )
+    return render(request, 'formularios/datos.html', {'datos':datos} )
 
 

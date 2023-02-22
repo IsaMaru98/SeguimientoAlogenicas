@@ -10,7 +10,7 @@ class CosechaAdmin(admin.ModelAdmin):
     def get_form(self, request, obj=None, **kwargs):
         if obj is None:
             # Si el objeto es nuevo, usa un formulario sin la clave primaria
-            self.exclude = ( 'densidadCosecha', 'totalObtenidas')
+            self.exclude = ( 'densidadCosecha', 'totalObtenidas', 'cosechaId')
         else:
             # Si el objeto ya existe, usa el formulario por defecto
             self.exclude = ()
@@ -35,6 +35,17 @@ class SiembraAdmin(admin.ModelAdmin):
             # Si el objeto ya existe, usa el formulario por defecto
             self.exclude = ()
         return super(SiembraAdmin, self).get_form(request, obj, **kwargs)
+
+class DatoAdmin(admin.ModelAdmin):
+    def get_form(self, request, obj=None, **kwargs):
+        if obj is None:
+            # Si el objeto es nuevo, usa un formulario sin la clave primaria
+            self.exclude = ( 'generaciones', 'tiempoDuplicacion', 'relacionExpansion')
+        else:
+            # Si el objeto ya existe, usa el formulario por defecto
+            self.exclude = ()
+        return super(DatoAdmin, self).get_form(request, obj, **kwargs)
 admin.site.register(models.Cosecha, CosechaAdmin)
 admin.site.register(models.Siembra, SiembraAdmin)
 admin.site.register(models.Crio, CrioAdmin)
+admin.site.register(models.Dato, DatoAdmin)

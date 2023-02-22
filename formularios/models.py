@@ -1,5 +1,5 @@
 from django.db import models
-
+import math as ma 
 class Siembra(models.Model): 
     cci = models.CharField(max_length=10, default="")
     loteSimbra = models.CharField(max_length=50) 
@@ -49,11 +49,13 @@ class Cosecha(models.Model):
     siembra = models.ForeignKey(Siembra, on_delete=models.CASCADE)
     densidadCosecha = models.IntegerField()
     totalObtenidas = models.FloatField()
+    cosechaId = models.CharField(max_length=50, unique=True, primary_key=True)
 
 
     def save(self, *args, **kwargs): 
         self.densidadCosecha = self.generarDensidadCosecha()
         self.totalObtenidas = self.generarTotalObtenidas()
+        self.cosechaId = self.generarIdCosecha()
         super().save(*args,*kwargs)
 
     def generarTotalObtenidas(self):
@@ -70,7 +72,8 @@ class Cosecha(models.Model):
 
         return densidadCosecha
 
-
+    def __str__(self): 
+        return self.cosechaId
 
 
 class Crio(models.Model): 
@@ -90,7 +93,25 @@ class Crio(models.Model):
         return r
 
 
+class Dato(models.Model): 
+    siembra = models.ForeignKey(Siembra, on_delete=models.CASCADE)
+    cosecha = models.ForeignKey(Cosecha, on_delete=models.CASCADE)
+    generaciones = models.FloatField()
+    tiempoDuplicacion = models.FloatField()
+    relacionExpansion = models.FloatField() 
 
+    def save(self,*args,**kargs):
+        totalSembradas = self.siembra.totalSiembra 
+        totalObtenidas = self.cosecha.totalObtenidas
+        relacionExpansion = round((totalObtenidas/totalSembradas),2)
+        diasCultivo = self.cosecha.tiempoCultivoDias
+        X = ma.log(relacionExpansion)
+
+        self.generaciones = round(X/ma.log(2), 2)
+        self.tiempoDuplicacion = round(diasCultivo* (ma.log(2)/X) , 2)
+        self.relacionExpansion = relacionExpansion
+
+        return super().save(*args,**kargs)
 
 
 
