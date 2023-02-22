@@ -2,6 +2,8 @@ from django.shortcuts import render, HttpResponse
 from django.http import HttpResponseRedirect
 from . import models
 from . import forms
+
+import math as ma 
 # Create your views here.
 
 ## en esta función llamo los datos de Cosecha con el objects.all() y estos los paso por medio de un diccionario al html 
@@ -58,5 +60,23 @@ def crioForm(request):
 
 def datos(request): 
     datosCosecha = models.Cosecha.objects.all()
-    return render(request, 'formularios/datos.html', {'datosCosecha': datosCosecha} )
+    
+    cosecha =  models.Cosecha.objects.get(siembra='C0222001-2022-02-21-175-10-001')
+    totalObtenidascosecha = cosecha.totalObtenidas 
+
+    siembra = cosecha.siembra 
+
+    totalSembradas = siembra.totalSiembra 
+
+    print(totalObtenidascosecha, totalSembradas)
+
+    X = ma.log(totalObtenidascosecha/totalSembradas)
+
+    numeroGeneraciones = round(X/ma.log(2), 2) 
+
+    
+    print(cosecha)
+    print(round(numeroGeneraciones,2))
+    return render(request, 'formularios/datos.html', {'generaciones': numeroGeneraciones} )
+
 
