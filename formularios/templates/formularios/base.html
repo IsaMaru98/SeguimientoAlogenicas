@@ -9,37 +9,38 @@
     <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
-   <header>
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-          <div class="navbar-header">
-            <a class="navbar-brand" href="/">Seguimientos</a>
-          </div>
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="/">Home</a></li>
-            <li>
-                <a href="/formulario_cosecha/"> Formulario Cosecha</a>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    
+          <a class="navbar-brand" href="/">Seguimientos</a>
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="/">Inicio</a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="/formulario_cosecha/"> Formulario Cosecha </a>
+              </li>
+            
+            <li class="nav-item">
+                <a class="nav-link" href="/formulario_siembra/"> Formulario Siembra</a>
             </li>
-            <li>
-                <a href="/formulario_siembra/"> Formulario Siembra</a>
+            <li class="nav-item">
+                <a  class="nav-link"  href="/formulario_criopreservacion/"> Formulario Criopreservación</a>
             </li>
-            <li>
-                <a href="/formulario_criopreservacion/"> Formulario Criopreservación</a>
+            <li class="nav-item">
+                <a class="nav-link" href="/formulario_datos"> Formulario Datos</a>
             </li>
-            <li>
-                <a href="/formulario_datos"> Formulario Datos</a>
+            <li class="nav-item">
+                <a class="nav-link" href="/datos/">Datos</a>
             </li>
-            <li>
-                <a href="/datos/">Datos</a>
-            </li>
-            <li>
-                <a href="/admin/">Admin</a>
+            <li class="nav-item">
+                <a class="nav-link" href="/admin/">Admin</a>
             </li>
           </ul>
-        </div>
+
       </nav>
-   </header>
-    
+
 	
     {% block content %}
     {% endblock %}
