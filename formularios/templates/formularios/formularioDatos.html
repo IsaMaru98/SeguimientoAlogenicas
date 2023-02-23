@@ -8,6 +8,17 @@
             {% csrf_token %}
             
             {{ formDato.as_p }} 
+
+            <!-- {% block scripts %}
+
+            <script>
+                window.onload = function() {
+                    alert('Datos guardados')
+                }
+            </script>
+
+            {% endblock  %} -->
+
             <input type="submit" class="btn btn-primary" value="Submit">
         </form>
         
