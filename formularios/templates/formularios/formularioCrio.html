@@ -9,8 +9,23 @@
             {% csrf_token %}
             
             {{ formCrio.as_p }} 
-            <input type="submit" class="btn btn-primary" value="Submit">
-        </form>
-        
+            <input type="submit" class="btn btn-primary" name="action" value="Guardar" >
+            <input type="submit" class="'btn" name="action" value="Mostrar" >
+        </form>        
         </div>
+
+        {% if success %}
+        <script>
+            // Configuración de SweetAlert
+            Swal.fire({
+              position: 'top-end',
+              icon: 'success',
+              title: '¡Datos guardados!',
+              showConfirmButton: false,
+              timer: 1500
+            });
+          </script>
+      {% endif %}
+
+
 {% endblock %}

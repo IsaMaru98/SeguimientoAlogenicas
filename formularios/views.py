@@ -12,15 +12,14 @@ def home(request):
     return render(request, 'formularios/home.html', {})
 def cosechaForm(request): 
 
-    if request.method == 'POST':
-        # create a form instance and populate it with data from the request:
+    if request.method == 'POST': 
         formCosecha = forms.CosechaForm(request.POST)
-        # check whether it's valid:
         if formCosecha.is_valid():
-
-            formCosecha.save()
-            # redirect to a new URL:
-            return HttpResponse('<h1> Datos guardados </h1>')
+            if request.POST.get('action') == 'Guardar': 
+                formCosecha.save() 
+                return render(request, 'formularios/formularioCosecha.html', {'formCosehca': formCosecha, 'success': True})
+            else: 
+                return HttpResponse('<h1> Datos guardados </h1>')
 
     # if a GET (or any other method) we'll create a blank form
     else:
@@ -29,16 +28,14 @@ def cosechaForm(request):
     return render(request, 'formularios/formularioCosecha.html', {'formCosecha': formCosecha} )
 
 def siembraForm(request): 
-    if request.method == 'POST':
-        # create a form instance and populate it with data from the request:
-        formSiembra= forms.SiembraForm(request.POST)
-        
+    if request.method == 'POST': 
+        formSiembra = forms.SiembraForm(request.POST)
         if formSiembra.is_valid():
-
-            formSiembra.save()
-            # redirect to a new URL:
-    
-            return HttpResponse('<h1> Datos guardados </h1>' )
+            if request.POST.get('action') == 'Guardar': 
+                formSiembra.save() 
+                return render(request, 'formularios/formularioSiembra.html', {'formSiembra': formSiembra, 'success': True})
+            else: 
+                return HttpResponse('<h1> Datos guardados </h1>')
     else:
         formSiembra = forms.SiembraForm()
     
@@ -49,10 +46,12 @@ def crioForm(request):
     if request.method == 'POST': 
         formCrio = forms.CrioForm(request.POST)
         if formCrio.is_valid():
-            formCrio.save() 
-
-            return HttpResponse('<h1> Datos guardados </h1>' )
-    
+            if request.POST.get('action') == 'Guardar': 
+                formCrio.save() 
+                return render(request, 'formularios/formularioCrio.html', {'formCrio': formCrio, 'success': True})
+            else: 
+                return HttpResponse('<h1> Datos guardados </h1>')
+        
     else:
         formCrio = forms.CrioForm()
     
