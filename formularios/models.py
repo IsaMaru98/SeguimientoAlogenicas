@@ -78,6 +78,7 @@ class Cosecha(models.Model):
 
 class Crio(models.Model): 
     cci = models.CharField(max_length=10 , default="")
+    cosecha = models.ForeignKey(Cosecha, on_delete=models.CASCADE)
     numCelulasXVial = models.FloatField()
     numViales = models.IntegerField() 
     totalCrio = models.IntegerField()
