@@ -26,7 +26,7 @@ class CrioForm(forms.ModelForm):
     class Meta: 
         model =  models.Crio
         fields = ['cci', 'cosecha', 'numCelulasXVial' ,  'numViales'] 
-        labels = {'numCelulasXVial' : 'Número de células por vial:' , 'numViales': 'Número de viales',  'cci': 'CCI:', 'cosecha' : 'Siembra de proveniencia:' }
+        labels = {'numCelulasXVial' : 'Número de células por vial:' , 'numViales': 'Número de viales',  'cci': 'CCI:', 'cosecha' : 'Cosecha de proveniencia:' }
 
 class DatosForm(forms.ModelForm): 
 
@@ -36,5 +36,5 @@ class DatosForm(forms.ModelForm):
 
     class Meta: 
         model =  models.Dato
-        fields = ['siembra', 'cosecha'] 
+        fields = [ 'cci', 'siembra', 'cosecha'] 
         

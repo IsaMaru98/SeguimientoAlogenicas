@@ -95,13 +95,16 @@ class Crio(models.Model):
 
 
 class Dato(models.Model): 
+    cci = models.CharField(max_length=10 , default="")
     siembra = models.ForeignKey(Siembra, on_delete=models.CASCADE)
     cosecha = models.ForeignKey(Cosecha, on_delete=models.CASCADE)
     generaciones = models.FloatField()
     tiempoDuplicacion = models.FloatField()
     relacionExpansion = models.FloatField() 
+    loteDatos = models.CharField(default="000", max_length=50)
 
     def save(self,*args,**kargs):
+        self.loteDatos = self.siembra.loteSimbra
         totalSembradas = self.siembra.totalSiembra 
         totalObtenidas = self.cosecha.totalObtenidas
         relacionExpansion = round((totalObtenidas/totalSembradas),2)

@@ -3,6 +3,7 @@
 {% block content %}
     <h1>Formulario Criopreservación</h1>
     <!-- Le quité el action para que la redireción se hiciera por medio de la view -->
+    <p style='color:red;'> ¡Recuerda siempre guardar antes de agragar otro dato!</p>
     <div class="formularioSeguimientos" id="formularioSiembra">
         <h2> Datos de Criopreservación</h2>
         <form  method="post">
@@ -10,7 +11,8 @@
             
             {{ formCrio.as_p }} 
             <input type="submit" class="btn btn-primary" name="action" value="Guardar" >
-            <input type="submit" class="'btn" name="action" value="Mostrar" >
+            <input type="submit"  name="action" class="btn btn-secondary" value="Mostrar" >
+            <input type="submit"  name="action" class="btn btn-secondary" value="Adicionar otro" >
         </form>        
         </div>
 
@@ -18,7 +20,7 @@
         <script>
             // Configuración de SweetAlert
             Swal.fire({
-              position: 'top-end',
+              position: 'center',
               icon: 'success',
               title: '¡Datos guardados!',
               showConfirmButton: false,

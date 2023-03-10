@@ -2,13 +2,16 @@
 
 {% block content %}
     <h1> Formulario Cosecha</h1>
+    <p style='color:red;'> ¡Recuerda siempre guardar antes de agragar otro dato!</p>
     <div class="formularioSeguimientos" id="formularioCosecha">
-        <h2> Datos de coseha</h2>
+        <h2> Datos de Cosecha</h2>
         <form method="post">
             {% csrf_token %}
             {{ formCosecha.as_p }}
             <input type="submit" name="action" class="btn btn-primary" value="Guardar">
             <input type="submit" name="action" class="btn btn-secondary" value="Mostrar">
+            <input type="submit"  class="btn btn-secondary" name="action" value="Adicionar otro" >
+      
 
         </form>
         
@@ -18,7 +21,7 @@
         <script>
             // Configuración de SweetAlert
             Swal.fire({
-              position: 'top-end',
+              position: 'center',
               icon: 'success',
               title: '¡Datos guardados!',
               showConfirmButton: false,

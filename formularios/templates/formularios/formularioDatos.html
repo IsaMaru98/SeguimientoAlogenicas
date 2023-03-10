@@ -3,25 +3,30 @@
 {% block content %}
 
 <div class="formularioDatos" id="formularioDatos" >  
-        <h2> Datos de Criopreservación</h2>
+        <h2> Formulario para cálculos</h2>
         <form  method="post">
             {% csrf_token %}
             
             {{ formDato.as_p }} 
 
-            <!-- {% block scripts %}
 
-            <script>
-                window.onload = function() {
-                    alert('Datos guardados')
-                }
-            </script>
-
-            {% endblock  %} -->
-
-            <input type="submit" class="btn btn-primary" value="Submit">
+            <input type="submit" name="action" class="btn btn-primary" value="Guardar">
+            <input type="submit" name="action" class="btn btn-secondary" value="Mostrar">
         </form>
         
         </div>
+
+        {% if success %}
+        <script>
+            // Configuración de SweetAlert
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: '¡Datos guardados!',
+              showConfirmButton: false,
+              timer: 1500
+            });
+          </script>
+      {% endif %}
 
 {% endblock  %}

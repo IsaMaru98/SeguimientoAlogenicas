@@ -2,12 +2,51 @@
 
 {% block title %}Página de Datos{% endblock %}
 {% block content %}
-{% for i in datos %}
+<!-- {% for i in datos %}
 
-        <h1> -- {{i.siembra}} -- </h1>
-        <p> Generaciones: {{i.generaciones}} </p>
-        <p> Tiempo de duplicación: {{i.tiempoDuplicacion}} </p>
-        <p> Relacion Expansión: {{i.relacionExpansion}} </p>
-    
-    {% endfor %}
+<div class="container">
+    <div class="card card-custom">
+      
+        <div class="card-header"> <strong>{{i.cci}} - {{i.loteDatos}} </strong> </div>
+        <div class="card-body">
+        <p><b> Siembra:</b> {{i.siembra}} </p>
+        <p><b> Cosecha:</b> {{i.cosecha}}</p>
+        <p> <b> Generaciones:</b> {{i.generaciones}} </p>
+        <p> <b>Tiempo de duplicación</b>: {{i.tiempoDuplicacion}} días </p>
+        <p> <b>Relacion Expansión:</b> {{i.relacionExpansion}} </p>
+
+      </div>
+    </div>
+  </div>
+
+    {% endfor %} -->
+    <style>
+        table {
+          margin: 0 auto; /* centra la tabla horizontalmente */
+          text-align: center; /* centra el contenido de las celdas horizontalmente */
+        }
+      </style>
+
+    <table class="table table-striped" >
+        <thead>
+            <tr>
+                <th>Siembra</th>
+                <th>Cosecha</th>
+                <th>Generaciones</th>
+                <th>Tiempo de duplicación</th>
+                <th>Relacion Expansión</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in datos %}
+            <tr>
+              <td>{{ i.siembra }}</td>
+              <td>{{ i.cosecha }}</td>
+              <td>{{ i.generaciones }}</td>
+              <td>{{i.tiempoDuplicacion}}</td>
+              <td>{{i.relacionExpansion}}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}

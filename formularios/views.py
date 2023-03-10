@@ -1,4 +1,5 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, redirect
+from django.urls import reverse
 from django.http import HttpResponseRedirect
 from . import models
 from . import forms
@@ -14,12 +15,15 @@ def cosechaForm(request):
 
     if request.method == 'POST': 
         formCosecha = forms.CosechaForm(request.POST)
+        formCosechaClean = forms.CosechaForm()
         if formCosecha.is_valid():
             if request.POST.get('action') == 'Guardar': 
                 formCosecha.save() 
-                return render(request, 'formularios/formularioCosecha.html', {'formCosehca': formCosecha, 'success': True})
+                return render(request, 'formularios/formularioCosecha.html', {'formCosecha': formCosecha, 'success': True})
+            elif request.POST.get('action') == 'Adicionar otro':
+                return  render(request, 'formularios/formularioCosecha.html', {'formCosecha':formCosechaClean} )
             else: 
-                return HttpResponse('<h1> Datos guardados </h1>')
+                return  HttpResponseRedirect(reverse('datos'))
 
     # if a GET (or any other method) we'll create a blank form
     else:
@@ -30,12 +34,15 @@ def cosechaForm(request):
 def siembraForm(request): 
     if request.method == 'POST': 
         formSiembra = forms.SiembraForm(request.POST)
+        formSiembraClean = forms.SiembraForm()
         if formSiembra.is_valid():
             if request.POST.get('action') == 'Guardar': 
                 formSiembra.save() 
                 return render(request, 'formularios/formularioSiembra.html', {'formSiembra': formSiembra, 'success': True})
+            elif request.POST.get('action') == 'Adicionar otro':
+                return  render(request, 'formularios/formularioSiembra.html', {'formSiembra':formSiembraClean} )
             else: 
-                return HttpResponse('<h1> Datos guardados </h1>')
+                return HttpResponseRedirect(reverse('datos'))
     else:
         formSiembra = forms.SiembraForm()
     
@@ -45,12 +52,15 @@ def crioForm(request):
 
     if request.method == 'POST': 
         formCrio = forms.CrioForm(request.POST)
+        formCrioClean = forms.CrioForm()
         if formCrio.is_valid():
             if request.POST.get('action') == 'Guardar': 
                 formCrio.save() 
                 return render(request, 'formularios/formularioCrio.html', {'formCrio': formCrio, 'success': True})
+            elif request.POST.get('action') == 'Adicionar otro':
+                return  render(request, 'formularios/formularioCrio.html', {'formCrio':formCrioClean} )
             else: 
-                return HttpResponse('<h1> Datos guardados </h1>')
+                return  HttpResponseRedirect(reverse('datos'))
         
     else:
         formCrio = forms.CrioForm()
@@ -62,14 +72,18 @@ def datoForm(request):
     if request.method == 'POST': 
         formDato = forms.DatosForm(request.POST)
         if formDato.is_valid():
-            formDato.save() 
+            if request.POST.get('action') == 'Guardar':
+                formDato.save() 
 
-            return HttpResponse('<h1> Datos guardados </h1>' )
+                return render(request, 'formularios/formularioDatos.html', {'formDato': formDato, 'success': True})
+            else: 
+                return HttpResponseRedirect(reverse('datos'))
     
     else:
         formDato = forms.DatosForm()
     
     return render(request, 'formularios/formularioDatos.html', {'formDato': formDato} )
+
 def datos(request): 
     datos = models.Dato.objects.all()
     
