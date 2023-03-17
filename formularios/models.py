@@ -102,11 +102,15 @@ class Dato(models.Model):
     tiempoDuplicacion = models.FloatField()
     relacionExpansion = models.FloatField() 
     loteDatos = models.CharField(default="000", max_length=50)
+    densidadCosecha = models.FloatField(default=0.0,  max_length=10)
+    densidadSiembra = models.FloatField(default=0.0,  max_length=10) 
 
     def save(self,*args,**kargs):
         self.loteDatos = self.siembra.loteSimbra
         totalSembradas = self.siembra.totalSiembra 
         totalObtenidas = self.cosecha.totalObtenidas
+        self.densidadCosecha = self.cosecha.densidadCosecha
+        self.densidadSiembra = self.siembra.densidadSiembra
         relacionExpansion = round((totalObtenidas/totalSembradas),2)
         diasCultivo = self.cosecha.tiempoCultivoDias
         X = ma.log(relacionExpansion)
