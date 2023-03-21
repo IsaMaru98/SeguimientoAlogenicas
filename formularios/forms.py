@@ -6,7 +6,7 @@ class CosechaForm(forms.ModelForm):
         model = models.Cosecha
         fields = ['cci', 'loteCosecha','fechaCosecha','paseCosecha','areaFrascosCosecha','numFrascosCosecha','numCelulasObtenidas','viabilidadCosecha', 'confluenciaCosecha',
     'tiempoCultivoDias', 'siembra']
-        labels = {'loteCosecha': 'Lote:','fechaCosecha': 'Fecha cosecha:','paseCosecha': 'Pase cosecha:','areaFrascosCosecha':'Tipo de frasco Cosecha:','numFrascosCosecha': 'Número de frascos de cosecha:', 'numCelulasObtenidas': 'Número total de células obtenidas (x10e6):','viabilidadCosecha': 'Viabilidad obtenida:', 'cci': 'CCI:', 'confluenciaCosecha': 'Confluencia (%):',
+        labels = {'loteCosecha': 'Lote:','fechaCosecha': 'Fecha cosecha:','paseCosecha': 'Pase cosecha:','areaFrascosCosecha':'Tipo de frasco Cosecha:','numFrascosCosecha': 'Número de frascos de cosecha:', 'numCelulasObtenidas': 'Número total de células obtenidas (x10e6):','viabilidadCosecha': 'Viabilidad obtenida (%):', 'cci': 'CCI:', 'confluenciaCosecha': 'Confluencia (%):',
     'tiempoCultivoDias': 'Tiempo de cultivo (días):', 'siembra': 'Siembra'}
         widgets = {
             'fechaCosecha': forms.DateInput(attrs={'type': 'date'}),
