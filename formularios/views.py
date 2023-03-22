@@ -90,7 +90,8 @@ def datos(request):
     return render(request, 'formularios/datos.html', {'datos':datos} )
 
 def lotes(request): 
-    datos = models.Cosecha.objects.all()
-    return render(request, 'formularios/lotes.html', {'datos':datos})
+    datosCosecha = models.Cosecha.objects.all()
+    datosSiembra = models.Siembra.objects.all()
+    return render(request, 'formularios/lotes.html', {'datosCosecha':datosCosecha, 'datosSiembra':datosSiembra})
 
 
