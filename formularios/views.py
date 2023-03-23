@@ -11,7 +11,7 @@ import math as ma
 # en el archivo html puedo mostrar estos datos del objeto usando un ciclo for 
 def home(request):
     return render(request, 'formularios/home.html', {})
-def cosechaForm(request): 
+def cosecha(request): 
 
     if request.method == 'POST': 
         formCosecha = forms.CosechaForm(request.POST)
@@ -19,9 +19,9 @@ def cosechaForm(request):
         if formCosecha.is_valid():
             if request.POST.get('action') == 'Guardar': 
                 formCosecha.save() 
-                return render(request, 'formularios/formularioCosecha.html', {'formCosecha': formCosecha, 'success': True})
+                return render(request, 'formularios/cosecha.html', {'formCosecha': formCosecha, 'success': True})
             elif request.POST.get('action') == 'Adicionar otro':
-                return  render(request, 'formularios/formularioCosecha.html', {'formCosecha':formCosechaClean} )
+                return  render(request, 'formularios/cosecha.html', {'formCosecha':formCosechaClean} )
             else: 
                 return  HttpResponseRedirect(reverse('datos'))
 
@@ -29,26 +29,26 @@ def cosechaForm(request):
     else:
         formCosecha = forms.CosechaForm()
     
-    return render(request, 'formularios/formularioCosecha.html', {'formCosecha': formCosecha} )
+    return render(request, 'formularios/cosecha.html', {'formCosecha': formCosecha} )
 
-def siembraForm(request): 
+def siembra(request): 
     if request.method == 'POST': 
         formSiembra = forms.SiembraForm(request.POST)
         formSiembraClean = forms.SiembraForm()
         if formSiembra.is_valid():
             if request.POST.get('action') == 'Guardar': 
                 formSiembra.save() 
-                return render(request, 'formularios/formularioSiembra.html', {'formSiembra': formSiembra, 'success': True})
+                return render(request, 'formularios/siembra.html', {'formSiembra': formSiembra, 'success': True})
             elif request.POST.get('action') == 'Adicionar otro':
-                return  render(request, 'formularios/formularioSiembra.html', {'formSiembra':formSiembraClean} )
+                return  render(request, 'formularios/siembra.html', {'formSiembra':formSiembraClean} )
             else: 
                 return HttpResponseRedirect(reverse('datos'))
     else:
         formSiembra = forms.SiembraForm()
     
-    return render(request, 'formularios/formularioSiembra.html', {'formSiembra': formSiembra} )
+    return render(request, 'formularios/siembra.html', {'formSiembra': formSiembra} )
 
-def crioForm(request):
+def crio(request):
 
     if request.method == 'POST': 
         formCrio = forms.CrioForm(request.POST)
@@ -56,16 +56,16 @@ def crioForm(request):
         if formCrio.is_valid():
             if request.POST.get('action') == 'Guardar': 
                 formCrio.save() 
-                return render(request, 'formularios/formularioCrio.html', {'formCrio': formCrio, 'success': True})
+                return render(request, 'formularios/crio.html', {'formCrio': formCrio, 'success': True})
             elif request.POST.get('action') == 'Adicionar otro':
-                return  render(request, 'formularios/formularioCrio.html', {'formCrio':formCrioClean} )
+                return  render(request, 'formularios/crio.html', {'formCrio':formCrioClean} )
             else: 
                 return  HttpResponseRedirect(reverse('datos'))
         
     else:
         formCrio = forms.CrioForm()
     
-    return render(request, 'formularios/formularioCrio.html', {'formCrio': formCrio} )
+    return render(request, 'formularios/crio.html', {'formCrio': formCrio} )
 
 def datoForm(request):
 

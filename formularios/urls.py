@@ -4,9 +4,9 @@ from . import views
 urlpatterns = [
     path('', views.home, name='home'),
     path('datos/', views.datos, name='datos'),
-    path('formulario_cosecha/', views.cosechaForm, name='formularioCosecha'),
-    path('formulario_siembra/', views.siembraForm, name='formularioSiembra'), 
-    path('formulario_criopreservacion/',views.crioForm, name='formularioCrio'),
+    path('cosecha/', views.cosecha, name='formularioCosecha'),
+    path('siembra/', views.siembra, name='formularioSiembra'), 
+    path('crio/',views.crio, name='formularioCrio'),
     path('formulario_datos/',views.datoForm, name="formularioDato"), 
     path('lotes/', views.lotes, name='lotes')
 ]
