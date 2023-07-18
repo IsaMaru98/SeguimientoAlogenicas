@@ -1,7 +1,4 @@
-from ninja import NinjaAPI, Schema, Router
-import httpx 
-
-router = Router() 
+from ninja import NinjaAPI, Schema
 
 api = NinjaAPI()
 
