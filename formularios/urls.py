@@ -1,13 +1,7 @@
-from django.urls import path 
+from django.urls import path, include 
 from . import views 
 from ninja import NinjaAPI
 
-api = NinjaAPI()
-
-
-@api.get("/add")
-def add(request, a: int, b: int):
-    return {"result": a + b}
 
 urlpatterns = [
     path('', views.home, name='home'),
@@ -17,5 +11,4 @@ urlpatterns = [
     path('crio/',views.crio, name='formularioCrio'),
     path('formulario_datos/',views.datoForm, name="formularioDato"), 
     path('lotes/', views.lotes, name='lotes'),
-    path("api/", api.urls),
 ]
