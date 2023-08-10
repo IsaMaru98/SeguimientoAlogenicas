@@ -2,6 +2,7 @@ from django.db import models
 import math as ma 
 class Siembra(models.Model): 
     cci = models.CharField(max_length=10, default="")
+    medioSiembra = models.CharField(max_length=10, default="NR")
     loteSimbra = models.CharField(max_length=50) 
     fechaSiembra = models.DateField()
     paseSiembra = models.CharField(choices=[('P0', 'P0'),('P1', 'P1'), ('P2', 'P2'), ('P3', 'P3'), ('P4', 'P4'), ('P5', 'P5'), ('P6', 'P6'), ('P7', 'P7')] , max_length=10)
@@ -83,6 +84,7 @@ class Crio(models.Model):
     numViales = models.IntegerField() 
     totalCrio = models.IntegerField()
     crioId = models.CharField(max_length=50, unique=True, primary_key=True)
+    #fechaCrio = models.DateField(default="1990-01-01")
 
     def save(self, *args, **kwargs): 
         self.totalCrio = self.generarTotalCrio()
@@ -90,7 +92,7 @@ class Crio(models.Model):
         super().save(*args,*kwargs)
 
     def generarCrioId(self):
-        return f"{self.cci}-{self.cosecha.loteCosecha}-{self.cosecha.paseCosecha}-{self.cosecha.areaFrascosCosecha}"
+        return f"{self.cci}-{self.cosecha.loteCosecha}-{self.cosecha.paseCosecha}-{self.cosecha.fechaCosecha}-{self.cosecha.areaFrascosCosecha}-{self.cosecha.numFrascosCosecha}"
 
     def generarTotalCrio(self):
 
@@ -104,6 +106,7 @@ class Crio(models.Model):
 
 class Dato(models.Model): 
     cci = models.CharField(max_length=10 , default="")
+    medioSiembra = models.CharField(max_length=10 , default="NR")
     siembra = models.ForeignKey(Siembra, on_delete=models.CASCADE)
     cosecha = models.ForeignKey(Cosecha, on_delete=models.CASCADE)
     generaciones = models.FloatField()
@@ -112,10 +115,12 @@ class Dato(models.Model):
     loteDatos = models.CharField(default="000", max_length=50)
     pase = models.CharField(default="000", max_length=50)
     densidadCosecha = models.FloatField(default=0.0,  max_length=10)
-    densidadSiembra = models.FloatField(default=0.0,  max_length=10) 
+    densidadSiembra = models.FloatField(default=0.0,  max_length=10)
+    datoId = models.CharField(max_length=50, primary_key=True)
 
     def save(self,*args,**kargs):
         self.loteDatos = self.siembra.loteSimbra
+        self.medioSiembra = self.siembra.medioSiembra
         self.pase = self.siembra.paseSiembra 
         totalSembradas = self.siembra.totalSiembra 
         totalObtenidas = self.cosecha.totalObtenidas
@@ -124,12 +129,22 @@ class Dato(models.Model):
         relacionExpansion = round((totalObtenidas/totalSembradas),2)
         diasCultivo = self.cosecha.tiempoCultivoDias
         X = ma.log(relacionExpansion)
+        self.datoId = self.generarDatoId()
+
 
         self.generaciones = round(X/ma.log(2), 2)
         self.tiempoDuplicacion = round(diasCultivo* (ma.log(2)/X) , 2)
         self.relacionExpansion = relacionExpansion
 
         return super().save(*args,**kargs)
+    
+    def generarDatoId(self):
+        return f"{self.cci}-{self.cosecha.loteCosecha}-{self.cosecha.paseCosecha}-{self.cosecha.fechaCosecha}-{self.cosecha.areaFrascosCosecha}-{self.cosecha.numFrascosCosecha}"
+    
+    
+    def __str__(self):
+        return self.datoId
+
 
 
 

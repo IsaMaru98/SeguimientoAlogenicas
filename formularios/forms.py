@@ -15,8 +15,8 @@ class CosechaForm(forms.ModelForm):
 class SiembraForm(forms.ModelForm):
     class Meta: 
         model = models.Siembra  
-        fields = ['cci','loteSimbra','fechaSiembra','paseSiembra','areaFrascosSiembra', 'numFrascosSiembra','numCelulasSembradasXFrasco']
-        labels = {'loteSimbra': 'Lote:' ,'fechaSiembra': 'Fecha Siembra:','paseSiembra':'Pase Siembra:','areaFrascosSiembra': 'Tipo de frasco Siembra:' , 'numFrascosSiembra': 'Número de frascos de Siembra:' ,'numCelulasSembradasXFrasco': 'Número de células sembradas por frasco (x10e6):', 'cci': 'CCI:' }
+        fields = ['cci','medioSiembra','loteSimbra','fechaSiembra','paseSiembra','areaFrascosSiembra', 'numFrascosSiembra','numCelulasSembradasXFrasco']
+        labels = {'medioSiembra':'Medio de cultivo', 'loteSimbra': 'Lote:' ,'fechaSiembra': 'Fecha Siembra:','paseSiembra':'Pase Siembra:','areaFrascosSiembra': 'Tipo de frasco Siembra:' , 'numFrascosSiembra': 'Número de frascos de Siembra:' ,'numCelulasSembradasXFrasco': 'Número de células sembradas por frasco (x10e6):', 'cci': 'CCI:' }
         widgets = {
             'fechaSiembra': forms.DateInput(attrs={'type': 'date'}),
         }
