@@ -84,7 +84,7 @@ class Crio(models.Model):
     numViales = models.IntegerField() 
     totalCrio = models.IntegerField()
     crioId = models.CharField(max_length=50, unique=True, primary_key=True)
-    #fechaCrio = models.DateField(default="1990-01-01")
+    fechaCrio = models.DateField()
 
     def save(self, *args, **kwargs): 
         self.totalCrio = self.generarTotalCrio()
@@ -92,7 +92,7 @@ class Crio(models.Model):
         super().save(*args,*kwargs)
 
     def generarCrioId(self):
-        return f"{self.cci}-{self.cosecha.loteCosecha}-{self.cosecha.paseCosecha}-{self.cosecha.fechaCosecha}-{self.cosecha.areaFrascosCosecha}-{self.cosecha.numFrascosCosecha}"
+        return f"{self.cci}-{self.cosecha.loteCosecha}-{self.cosecha.paseCosecha}-{self.fechaCrio}-{self.cosecha.areaFrascosCosecha}-{self.cosecha.numFrascosCosecha}"
 
     def generarTotalCrio(self):
 

@@ -25,8 +25,11 @@ class CrioForm(forms.ModelForm):
 
     class Meta: 
         model =  models.Crio
-        fields = ['cci', 'cosecha', 'numCelulasXVial' ,  'numViales'] 
-        labels = {'numCelulasXVial' : 'Número de células por vial:' , 'numViales': 'Número de viales',  'cci': 'CCI:', 'cosecha' : 'Cosecha de proveniencia:' }
+        fields = ['cci','fechaCrio', 'cosecha', 'numCelulasXVial' ,  'numViales'] 
+        labels = {'fechaCrio': 'Fecha de criopreservación', 'numCelulasXVial' : 'Número de células por vial:' , 'numViales': 'Número de viales',  'cci': 'CCI:', 'cosecha' : 'Cosecha de proveniencia:' }
+        widgets = {
+            'fechaCrio': forms.DateInput(attrs={'type': 'date'}),
+        }
 
 class DatosForm(forms.ModelForm): 
 
