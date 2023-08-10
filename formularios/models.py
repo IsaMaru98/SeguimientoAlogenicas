@@ -5,7 +5,7 @@ class Siembra(models.Model):
     loteSimbra = models.CharField(max_length=50) 
     fechaSiembra = models.DateField()
     paseSiembra = models.CharField(choices=[('P0', 'P0'),('P1', 'P1'), ('P2', 'P2'), ('P3', 'P3'), ('P4', 'P4'), ('P5', 'P5'), ('P6', 'P6'), ('P7', 'P7')] , max_length=10)
-    areaFrascosSiembra = models.IntegerField(choices=[(25, 'T25'), (75, 'T75'), (175, 'T175'), (850, 'CR Liso'), (2125, 'CR Corrugado'), (0, 'Crioviales')])
+    areaFrascosSiembra = models.IntegerField(choices=[(25, 'T25'), (75, 'T75'), (175, 'T175'), (850, 'CR Liso'), (2125, 'CR Corrugado'), (1272, 'CS 2p'), (3180, 'CS 5p'), (6360, 'CS 10p'), (500, 'TripleFlask'),  (0, 'Crioviales')])
     numFrascosSiembra = models.IntegerField()
     numCelulasSembradasXFrasco = models.FloatField()
     densidadSiembra = models.IntegerField()
@@ -24,7 +24,7 @@ class Siembra(models.Model):
         return densidadSiembra
 
     def generarSiembraId(self):
-        return f"{self.cci}-{self.fechaSiembra}-{self.areaFrascosSiembra}-{self.numFrascosSiembra}-{self.loteSimbra}"
+        return f"{self.cci}-{self.loteSimbra}-{self.paseSiembra}-{self.fechaSiembra}-{self.areaFrascosSiembra}-{self.numFrascosSiembra}"
     
     def generarTotalSiembra(self): 
         r = self.numCelulasSembradasXFrasco * 1000000 * self.numFrascosSiembra 
@@ -40,7 +40,7 @@ class Cosecha(models.Model):
     loteCosecha = models.CharField(default="", max_length=50)
     fechaCosecha = models.DateField()
     paseCosecha = models.CharField(choices=[('P0', 'P0'),('P1', 'P1'), ('P2', 'P2'), ('P3', 'P3'), ('P4', 'P4'), ('P5', 'P5'), ('P6', 'P6'), ('P7', 'P7')] , max_length=10)
-    areaFrascosCosecha = models.IntegerField(choices=[(25, 'T25'), (75, 'T75'), (175, 'T175'), (850, 'CR Liso'), (2125, 'CR Corrugado'), (0, 'Crioviales')]) 
+    areaFrascosCosecha = models.IntegerField(choices=[(25, 'T25'), (75, 'T75'), (175, 'T175'), (850, 'CR Liso'), (2125, 'CR Corrugado'),(1272, 'CS 2p'), (3180, 'CS 5p'), (6360, 'CS 10p'), (500, 'TripleFlask'), (0, 'Crioviales')]) 
     numFrascosCosecha = models.IntegerField()
     confluenciaCosecha = models.FloatField()
     tiempoCultivoDias = models.IntegerField()
@@ -64,7 +64,7 @@ class Cosecha(models.Model):
         return totalObtenidas 
 
     def generarIdCosecha(self):
-        return f"{self.cci}-{self.fechaCosecha}-{self.areaFrascosCosecha}-{self.numFrascosCosecha}-{self.loteCosecha}"
+        return f"{self.cci}-{self.loteCosecha}-{self.paseCosecha}-{self.fechaCosecha}-{self.areaFrascosCosecha}-{self.numFrascosCosecha}"
 
     def generarDensidadCosecha(self): 
         r = ((self.numCelulasObtenidas*1000000)/(self.areaFrascosCosecha*self.numFrascosCosecha))
@@ -82,16 +82,24 @@ class Crio(models.Model):
     numCelulasXVial = models.FloatField()
     numViales = models.IntegerField() 
     totalCrio = models.IntegerField()
+    crioId = models.CharField(max_length=50, unique=True, primary_key=True)
 
     def save(self, *args, **kwargs): 
         self.totalCrio = self.generarTotalCrio()
+        self.crioId = self.generarCrioId() 
         super().save(*args,*kwargs)
+
+    def generarCrioId(self):
+        return f"{self.cci}-{self.cosecha.loteCosecha}-{self.cosecha.paseCosecha}-{self.cosecha.areaFrascosCosecha}"
 
     def generarTotalCrio(self):
 
         r =  round((self.numCelulasXVial * self.numViales), 2)
 
         return r
+    
+    def __str__(self): 
+        return self.crioId
 
 
 class Dato(models.Model): 
@@ -102,11 +110,13 @@ class Dato(models.Model):
     tiempoDuplicacion = models.FloatField()
     relacionExpansion = models.FloatField() 
     loteDatos = models.CharField(default="000", max_length=50)
+    pase = models.CharField(default="000", max_length=50)
     densidadCosecha = models.FloatField(default=0.0,  max_length=10)
     densidadSiembra = models.FloatField(default=0.0,  max_length=10) 
 
     def save(self,*args,**kargs):
         self.loteDatos = self.siembra.loteSimbra
+        self.pase = self.siembra.paseSiembra 
         totalSembradas = self.siembra.totalSiembra 
         totalObtenidas = self.cosecha.totalObtenidas
         self.densidadCosecha = self.cosecha.densidadCosecha
