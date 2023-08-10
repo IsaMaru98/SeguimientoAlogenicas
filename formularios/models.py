@@ -2,7 +2,7 @@ from django.db import models
 import math as ma 
 class Siembra(models.Model): 
     cci = models.CharField(max_length=10, default="")
-    medioSiembra = models.CharField(max_length=10, default="NR")
+    medioSiembra = models.CharField(max_length=50, default="NR")
     loteSimbra = models.CharField(max_length=50) 
     fechaSiembra = models.DateField()
     paseSiembra = models.CharField(choices=[('P0', 'P0'),('P1', 'P1'), ('P2', 'P2'), ('P3', 'P3'), ('P4', 'P4'), ('P5', 'P5'), ('P6', 'P6'), ('P7', 'P7')] , max_length=10)
@@ -106,7 +106,7 @@ class Crio(models.Model):
 
 class Dato(models.Model): 
     cci = models.CharField(max_length=10 , default="")
-    medioSiembra = models.CharField(max_length=10 , default="NR")
+    medioSiembra = models.CharField(max_length=50 , default="NR")
     siembra = models.ForeignKey(Siembra, on_delete=models.CASCADE)
     cosecha = models.ForeignKey(Cosecha, on_delete=models.CASCADE)
     generaciones = models.FloatField()

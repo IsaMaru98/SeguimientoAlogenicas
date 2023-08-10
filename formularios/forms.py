@@ -33,10 +33,6 @@ class CrioForm(forms.ModelForm):
 
 class DatosForm(forms.ModelForm): 
 
-    # siembra = forms.ModelChoiceField( queryset= models.Siembra.objects.order_by('siembraId')[:10])
-
-    # cosecha = forms.ModelChoiceField( queryset= models.Cosecha.objects.order_by('cosechaId')[:10])
-
     class Meta: 
         model =  models.Dato
         fields = [ 'cci', 'siembra', 'cosecha'] 
