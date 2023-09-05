@@ -27,6 +27,10 @@ class CrioAdmin(admin.ModelAdmin):
         return super(CrioAdmin, self).get_form(request, obj, **kwargs)
 
 class SiembraAdmin(admin.ModelAdmin):
+    list_display = ('cci', 'medioSiembra', 'loteSimbra', 'fechaSiembra', 'paseSiembra', 'areaFrascosSiembra', 'numFrascosSiembra', 'numCelulasSembradasXFrasco', 'densidadSiembra', 'siembraId', 'totalSiembra')
+    list_filter = ('paseSiembra', 'areaFrascosSiembra', 'fechaSiembra')  # Add any filters you want
+    search_fields = ('siembraId', 'loteSimbra')  # Add any fields you want to search by
+
     def get_form(self, request, obj=None, **kwargs):
         if obj is None:
             # Si el objeto es nuevo, usa un formulario sin la clave primaria

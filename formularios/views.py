@@ -1,4 +1,6 @@
 from django.shortcuts import render, HttpResponse, redirect
+from django.template.loader import render_to_string
+
 from django.urls import reverse
 from django.http import HttpResponseRedirect
 from . import models
@@ -31,22 +33,45 @@ def cosecha(request):
     
     return render(request, 'formularios/cosecha.html', {'formCosecha': formCosecha} )
 
+# def siembra(request): 
+#     if request.method == 'POST': 
+#         formSiembra = forms.SiembraForm(request.POST)
+#         formSiembraClean = forms.SiembraForm()
+#         if formSiembra.is_valid():
+#             if request.POST.get('action') == 'Guardar': 
+#                 formSiembra.save() 
+#                 return render(request, 'formularios/siembra.html', {'formSiembra': formSiembra, 'success': True})
+#             elif request.POST.get('action') == 'Adicionar otro':
+#                 return  render(request, 'formularios/siembra.html', {'formSiembra':formSiembraClean} )
+#             else: 
+#                 return HttpResponseRedirect(reverse('datos'))
+#     else:
+#         formSiembra = forms.SiembraForm()
+    
+    # return render(request, 'formularios/siembra.html', {'formSiembra': formSiembra} )
+
 def siembra(request): 
     if request.method == 'POST': 
         formSiembra = forms.SiembraForm(request.POST)
         formSiembraClean = forms.SiembraForm()
+
         if formSiembra.is_valid():
-            if request.POST.get('action') == 'Guardar': 
-                formSiembra.save() 
-                return render(request, 'formularios/siembra.html', {'formSiembra': formSiembra, 'success': True})
-            elif request.POST.get('action') == 'Adicionar otro':
-                return  render(request, 'formularios/siembra.html', {'formSiembra':formSiembraClean} )
-            else: 
-                return HttpResponseRedirect(reverse('datos'))
+            try:
+                if request.POST.get('action') == 'Guardar': 
+                    form_instance = formSiembra.save()
+                    print("Form instance after saving:", form_instance)
+                    return render(request, 'formularios/siembra.html', {'formSiembra': formSiembra, 'success': True})
+                elif request.POST.get('action') == 'Adicionar otro':
+                    return render(request, 'formularios/siembra.html', {'formSiembra': formSiembraClean})
+                else: 
+                    return HttpResponseRedirect(reverse('datos'))
+            except Exception as e:
+                print("Exception:", e)
+
     else:
         formSiembra = forms.SiembraForm()
     
-    return render(request, 'formularios/siembra.html', {'formSiembra': formSiembra} )
+    return render(request, 'formularios/siembra.html', {'formSiembra': formSiembra})
 
 def crio(request):
 
@@ -95,3 +120,12 @@ def lotes(request):
     return render(request, 'formularios/lotes.html', {'datosCosecha':datosCosecha, 'datosSiembra':datosSiembra})
 
 
+def data_table(request): 
+
+    data = models.Dato.objects.all()
+    return render(request, 'data_table.html', {'data': data})
+
+def refresh_data(request):
+    data = models.Dato.objects.all() 
+    table_rows = render_to_string('table_rows.html', {'data': data})
+    return HttpResponse(table_rows)

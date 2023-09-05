@@ -1,0 +1,41 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Data Table</title>
+</head>
+<body>
+
+<table id="data-table">
+    <thead>
+        <tr>
+            <th>Siembra</th>
+            <th>Medio</th>
+            <!-- Add more columns as needed -->
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in data %}
+        <tr>
+            <td>{{ item.siembra }}</td>
+            <td>{{ item.medioSiembra }}</td>
+            <!-- Display other columns -->
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- Add JavaScript to update the table dynamically -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    function updateTable() {
+        $.get('/refresh-data/', function(data) {
+            $('#data-table tbody').html(data);
+        });
+    }
+
+    setInterval(updateTable, 5000);  // Update every 5 seconds
+</script>
+
+</body>
+</html>
