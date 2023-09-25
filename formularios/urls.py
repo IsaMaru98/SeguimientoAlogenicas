@@ -11,4 +11,5 @@ urlpatterns = [
     path('lotes/', views.lotes, name='lotes'),
     path('data-table/', views.data_table, name='data_table'),
     path('refresh-data/', views.refresh_data, name='refresh_data'),
+    path('salir/',views.salir, name='salir')
 ]

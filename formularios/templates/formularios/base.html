@@ -64,6 +64,16 @@
         <li class="nav-item">
           <a class="nav-link" href="/admin/">Admin</a>
         </li>
+        {% if request.user.is_authenticated%}
+        <li class="nav-item">
+          <a class="nav-link" href={% url 'salir'%}>Salir</a>
+        </li>
+        {% else %}
+        <li class="nav-item">
+          <a class="nav-link" href={% url 'login'%}>Ingresar</a>
+        </li>
+        {% endif %}
+
       </ul>
     </nav>
 

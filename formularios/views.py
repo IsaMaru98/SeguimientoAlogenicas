@@ -5,6 +5,8 @@ from django.urls import reverse
 from django.http import HttpResponseRedirect
 from . import models
 from . import forms
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout 
 
 import math as ma 
 # Create your views here.
@@ -13,6 +15,7 @@ import math as ma
 # en el archivo html puedo mostrar estos datos del objeto usando un ciclo for 
 def home(request):
     return render(request, 'formularios/home.html', {})
+@login_required
 def cosecha(request): 
 
     if request.method == 'POST': 
@@ -49,7 +52,7 @@ def cosecha(request):
 #         formSiembra = forms.SiembraForm()
     
     # return render(request, 'formularios/siembra.html', {'formSiembra': formSiembra} )
-
+@login_required
 def siembra(request): 
     if request.method == 'POST': 
         formSiembra = forms.SiembraForm(request.POST)
@@ -72,7 +75,7 @@ def siembra(request):
         formSiembra = forms.SiembraForm()
     
     return render(request, 'formularios/siembra.html', {'formSiembra': formSiembra})
-
+@login_required
 def crio(request):
 
     if request.method == 'POST': 
@@ -91,7 +94,7 @@ def crio(request):
         formCrio = forms.CrioForm()
     
     return render(request, 'formularios/crio.html', {'formCrio': formCrio} )
-
+@login_required
 def datoForm(request):
 
     if request.method == 'POST': 
@@ -108,24 +111,28 @@ def datoForm(request):
         formDato = forms.DatosForm()
     
     return render(request, 'formularios/formularioDatos.html', {'formDato': formDato} )
-
+@login_required
 def datos(request): 
     datos = models.Dato.objects.all()
     
     return render(request, 'formularios/datos.html', {'datos':datos} )
-
+@login_required
 def lotes(request): 
     datosCosecha = models.Cosecha.objects.all()
     datosSiembra = models.Siembra.objects.all()
     return render(request, 'formularios/lotes.html', {'datosCosecha':datosCosecha, 'datosSiembra':datosSiembra})
 
-
+@login_required
 def data_table(request): 
 
     data = models.Dato.objects.all()
     return render(request, 'data_table.html', {'data': data})
-
+@login_required
 def refresh_data(request):
     data = models.Dato.objects.all() 
     table_rows = render_to_string('table_rows.html', {'data': data})
     return HttpResponse(table_rows)
+
+def salir(request):
+    logout(request)
+    return(redirect('/'))
