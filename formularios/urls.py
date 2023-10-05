@@ -9,7 +9,5 @@ urlpatterns = [
     path('crio/',views.crio, name='formularioCrio'),
     path('formulario_datos/',views.datoForm, name="formularioDato"), 
     path('lotes/', views.lotes, name='lotes'),
-    path('data-table/', views.data_table, name='data_table'),
-    path('refresh-data/', views.refresh_data, name='refresh_data'),
     path('salir/',views.salir, name='salir')
 ]

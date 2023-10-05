@@ -122,16 +122,6 @@ def lotes(request):
     datosSiembra = models.Siembra.objects.all()
     return render(request, 'formularios/lotes.html', {'datosCosecha':datosCosecha, 'datosSiembra':datosSiembra})
 
-@login_required
-def data_table(request): 
-
-    data = models.Dato.objects.all()
-    return render(request, 'data_table.html', {'data': data})
-@login_required
-def refresh_data(request):
-    data = models.Dato.objects.all() 
-    table_rows = render_to_string('table_rows.html', {'data': data})
-    return HttpResponse(table_rows)
 
 def salir(request):
     logout(request)

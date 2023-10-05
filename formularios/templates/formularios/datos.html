@@ -2,24 +2,6 @@
 
 {% block title %}Página de Datos{% endblock %}
 {% block content %}
-<!-- {% for i in datos %}
-
-<div class="container">
-    <div class="card card-custom">
-      
-        <div class="card-header"> <strong>{{i.cci}} - {{i.loteDatos}} </strong> </div>
-        <div class="card-body">
-        <p><b> Siembra:</b> {{i.siembra}} </p>
-        <p><b> Cosecha:</b> {{i.cosecha}}</p>
-        <p> <b> Generaciones:</b> {{i.generaciones}} </p>
-        <p> <b>Tiempo de duplicación</b>: {{i.tiempoDuplicacion}} días </p>
-        <p> <b>Relacion Expansión:</b> {{i.relacionExpansion}} </p>
-
-      </div>
-    </div>
-  </div>
-
-    {% endfor %} -->
     <style>
         table {
           margin: 0 auto; /* centra la tabla horizontalmente */
@@ -32,6 +14,7 @@
             <tr>
                 <th>Siembra</th>
                 <th>Cosecha</th>
+                <th>Lote</th> 
                 <th>Pase</th>
                 <th>Generaciones</th>
                 <th>Tiempo de duplicación [Dias] </th>
@@ -46,6 +29,7 @@
             <tr>
               <td>{{ i.siembra }}</td>
               <td>{{ i.cosecha }}</td>
+              <td>{{i.loteDatos}}</td>
               <td>{{ i.pase }}</td>
               <td>{{ i.generaciones }}</td>
               <td>{{i.tiempoDuplicacion}}</td>
@@ -53,7 +37,6 @@
               <td>{{i.densidadSiembra}}</td>
               <td>{{i.densidadCosecha}}</td>
               <td>{{i.medioSiembra}}</td>
-
             </tr>
           {% endfor %}
         </tbody>
