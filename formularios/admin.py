@@ -2,10 +2,6 @@ from django.contrib import admin
 
 from . import models 
 
-
-# Register your models here.
-
-
 # class CosechaAdmin(admin.ModelAdmin):
 #     def get_form(self, request, obj=None, **kwargs):
 #         if obj is None:
@@ -34,14 +30,8 @@ class SiembraAdmin(admin.ModelAdmin):
     
 
 class DatoAdmin(admin.ModelAdmin):
-    def get_form(self, request, obj=None, **kwargs):
-        if obj is None:
-            # Si el objeto es nuevo, usa un formulario sin la clave primaria
-            self.exclude = ( 'generaciones', 'tiempoDuplicacion', 'relacionExpansion')
-        else:
-            # Si el objeto ya existe, usa el formulario por defecto
-            self.exclude = ()
-        return super(DatoAdmin, self).get_form(request, obj, **kwargs)
+    exclude = ( 'generaciones', 'tiempoDuplicacion', 'relacionExpansion', 'datoId', 'loteDatos', 'pase', 'densidadCosecha', 'densidadSiembra')
+    list_display = ('cci', 'loteDatos', 'datoId')
 admin.site.register(models.Cosecha, CosechaAdmin)
 admin.site.register(models.Siembra, SiembraAdmin)
 admin.site.register(models.Crio, CrioAdmin)
