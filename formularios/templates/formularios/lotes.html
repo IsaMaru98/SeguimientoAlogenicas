@@ -4,6 +4,19 @@
 {% block content %}
 
 <h3> Busquedas por lotes </h3>
-
+<table class="table table-striped" >
+    <thead>
+        <tr>
+            <th>CCI</th>
+    </thead>
+    <tbody>
+        {% for i in datosCrio %}
+        <tr>
+          <td>{{i.cci }}</td>
+    
+        </tr>
+      {% endfor %}
+    </tbody>
+</table>
 
 {% endblock %}

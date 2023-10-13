@@ -120,7 +120,8 @@ def datos(request):
 def lotes(request): 
     datosCosecha = models.Cosecha.objects.all()
     datosSiembra = models.Siembra.objects.all()
-    return render(request, 'formularios/lotes.html', {'datosCosecha':datosCosecha, 'datosSiembra':datosSiembra})
+    datosCrio = models.Crio.objects.all() 
+    return render(request, 'formularios/lotes.html', {'datosCosecha':datosCosecha, 'datosSiembra':datosSiembra, 'datosCrio': datosCrio})
 
 
 def salir(request):
