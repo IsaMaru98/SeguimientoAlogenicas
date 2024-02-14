@@ -11,7 +11,7 @@
           background-image: url('/css/searchicon.png'); /* Add a search icon to input */
           background-position: 10px 12px; /* Position the search icon */
           background-repeat: no-repeat; /* Do not repeat the icon image */
-          width: 100%; /* Full-width */
+          width: 80%; /* Full-width */
           font-size: 16px; /* Increase font-size */
           padding: 12px 20px 12px 40px; /* Add some padding */
           border: 1px solid #ddd; /* Add a grey border */
@@ -20,13 +20,16 @@
       </style>
 
     <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Busca por lote">
+     <a href="{% url 'dato_xlsx' %}">
+      <button style="float: right; margin-right: 20px; background-color: #4CAF50; color: white; padding: 10px 20px; border: none; border-radius: 5px;">Exportar a Excel</button>
+  </a>
 
     <table class="table table-striped" id="myTable">
         <thead>
             <tr>
                 <th>Siembra</th>
                 <th>Cosecha</th>
-                <th>Lote</th> 
+                <th>Lote</th>
                 <th>Pase</th>
                 <th>Generaciones</th>
                 <th>Tiempo de duplicación [Dias] </th>
@@ -35,6 +38,9 @@
                 <th> Densidad Cosecha [Cells/cm2] </th>
                 <th> Medio de cultivo </th>
                 <th>CCI</th>
+                <th>Comentarios</th>
+
+
             </tr>
         </thead>
         <tbody>
@@ -51,9 +57,11 @@
               <td>{{i.densidadCosecha}}</td>
               <td>{{i.medioSiembra}}</td>
               <td>{{i.cci}}</td>
+              <td>{{i.comentarios}}</td>
+
             </tr>
           {% endfor %}
-        
+
     </table>
     <script>
       function myFunction() {
@@ -71,7 +79,7 @@
             } else {
               tr[i].style.display = "none";
             }
-          }       
+          }
         }
       }
       </script>

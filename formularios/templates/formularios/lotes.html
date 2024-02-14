@@ -2,7 +2,176 @@
 
 {% block title %}Datos por lote{% endblock %}
 {% block content %}
+<style>
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Cambié auto a 1fr para que ocupen espacio igualmente */
+  justify-content: center; /* Centra el contenido horizontalmente */
+  align-items: center; /* Centra el contenido verticalmente */
+  background-color: #bcbebe;
+  padding: 1px;
+  gap: 5px; /* Agregué un espacio entre los elementos */
+}
 
-<h3> Busquedas por lotes </h3>
+.grid-item {
+  background-color: rgba(255, 255, 255, 1);
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  padding: 40px; /* Hice el padding más grande para hacer los elementos más amplios */
+  font-size: 30px;
+  text-align: center; /* Centra el texto horizontalmente */
+}
+
+
+</style>
+<div class="grid-container">
+  <div class = "grid-item"><canvas id="siembraVSexpansion"></canvas></div>
+  <div class = "grid-item"><canvas id="loteVSpromDensidadCosecha"></canvas></div>
+  <div class = "grid-item"><canvas id="paseVSpromDensidadCosecha"></canvas></div>
+  <div class = "grid-item"><canvas id="frascoVSpromDensidadCosecha"></canvas></div>
+  </div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <script>
+    const ctx = document.getElementById('siembraVSexpansion');
+
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: {{dSiembra|safe}},
+        datasets: [{
+          label: 'Relación expansión',
+          data: {{rExpansion|safe}},
+          borderWidth: 1,
+        }]
+      },
+      options: {
+        scales: {
+            x: {
+                title: {
+                display:true,
+                text: 'Densidad de siembra [cells/cm2]'
+
+            }
+        },
+
+          y: {
+            beginAtZero: true,
+            title: {
+                display:true,
+                text: 'Relación expansión'
+            }
+
+          }
+        }
+      }
+    });
+
+    const ctx2 = document.getElementById('loteVSpromDensidadCosecha');
+
+    new Chart(ctx2, {
+      type: 'bar',
+      data: {
+        labels: {{lotes|safe}},
+        datasets: [{
+          label: 'Lote',
+          data: {{promDensidadlot|safe}},
+          borderWidth: 1
+        }]
+      },
+      options: {
+          scales: {
+            x: {
+                title: {
+                display:true,
+                text: 'Lote'
+
+            }
+        },
+
+          y: {
+            beginAtZero: true,
+            title: {
+                display:true,
+                text: 'Densidad de Cosecha [cells/cm2]'
+            }
+
+          }
+        }
+
+      }
+    });
+
+    const ctx3 = document.getElementById('paseVSpromDensidadCosecha');
+
+    new Chart(ctx3, {
+      type: 'bar',
+      data: {
+        labels: {{pase|safe}},
+        datasets: [{
+          label: 'pase',
+          data: {{promDensidadPas|safe}},
+          borderWidth: 1
+        }]
+      },
+      options: {
+          scales: {
+            x: {
+                title: {
+                display:true,
+                text: 'Pase'
+
+            }
+        },
+
+          y: {
+            beginAtZero: true,
+            title: {
+                display:true,
+                text: 'Densidad de Cosecha [cells/cm2]'
+            }
+
+          }
+        }
+
+      }
+    });
+    const ctx4 = document.getElementById('frascoVSpromDensidadCosecha');
+
+    new Chart(ctx4, {
+      type: 'bar',
+      data: {
+        labels: {{tipoFrasco|safe}},
+        datasets: [{
+          label: 'Tipo de frasco',
+          data: {{promDensidadFras|safe}},
+          borderWidth: 1
+        }]
+      },
+      options: {
+          scales: {
+            x: {
+                title: {
+                display:true,
+                text: 'Tipo de frasco'
+
+            }
+        },
+
+          y: {
+            beginAtZero: true,
+            title: {
+                display:true,
+                text: 'Densidad de Cosecha [cells/cm2]'
+            }
+
+          }
+        }
+
+      }
+    });
+  </script>
+
 
 {% endblock %}
